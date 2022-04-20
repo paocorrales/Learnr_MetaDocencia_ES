@@ -1,0 +1,132 @@
+---
+title: "¡Pingüinos!"
+output: 
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+# paquetes
+library(learnr)
+library(tidyverse)
+#devtools::install_github("rstudio-education/gradethis")
+library(gradethis)
+#devtools::install_github("rundel/learnrhash")
+library(learnrhash)
+library(datos) #incluye los datos de pinguinos
+# opciones del tutorial
+tutorial_options(
+  # el código que corre en un ejercicio se cancela a los 30 segundos
+  exercise.timelimit = 30, 
+  # usa gradethis para evaluar ejercicios
+  exercise.checker = gradethis::grade_learnr
+  )
+# esconde chunks de código que no contienen ejercicios
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+---
+
+**Este es un tutorial de demostración creado para el curso "Building interactive tutorials in R" y adapatado para el taller de "Tutoriales interactivos con learnr". Puedes encontrar las slides y el material completo de la serie de cursos [acá](http://bit.ly/teach-r-online-mats).**
+
+---
+
+## Introducción
+
+```{r stormtrooper, fig.margin = TRUE, echo = FALSE, fig.width=3, out.width = "100%", fig.cap="Ilustración de Allison Horst."}
+knitr::include_graphics("fig/pinguinos.png")
+```
+
+Los datos fueron recolectados y publicados por la [Dr. Kristen Gorman](https://www.uaf.edu/cfos/people/faculty/detail/kristen-gorman.php) y la [Palmer Station, Antarctica LTER](https://pal.lternet.edu/), miembro de [Long Term Ecological Research Network](https://lternet.edu/). 
+
+Los datos son distrubuidos en el paquete [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/) (en inglés) y el el paquete [datos]() (en español). 
+
+### Objetivos de aprendizaje
+
+- Practicar generar ejercicios con learnr.
+- Practicar escribir evaluaciones para ejercicios de código con gradethis.
+
+### ¿Necesitas ayuda?
+
+Si tenés alguna consulta, podés pedir ayuda por Zoom!
+
+### Paquetes
+
+Para estos ejercicios usaremos los datos de pinguinos presentes en el paquete **datos** y **tidyverse** para su manipulación. Así que vamos a cargarlos.
+
+```{r load-package, exercise = TRUE}
+library(tidyverse)
+
+pinguinos <- datos::pinguinos
+```
+
+## Preguntas de opción múltiple
+
+Modificá la siguiente pregunta para que:
+
+- Permita volver a responder si la respuesta dada fue incorrecta
+- Muestre las posibles respuestas en orden aleatorio
+- Muestre un mensaje específico cuando la respuesta es correcta
+- Muestre mensajes específicos cuando la respuesta es incorrecta (intetá dar pistas o mensajes de retroalimentación para las distintas respuestas incorrectas)
+- Modifica la pregunta sobre el color de los pinguinos para que permita más de una opción correcta
+- Incluye las dos preguntas en un `quiz()`
+
+```{r pinguinos-geniales}
+question(
+  "¿Qué tan geniales son los pingüinos?",
+  answer("Super geniales!", correct = TRUE),
+  answer("Geniales"),
+  answer("Meh"),
+  answer("No tan geniales"),
+  answer("Para nada geniales")
+)
+```
+
+```{r pinguinos-colores}
+question(
+  "¿De qué colores son los pingüinos?",
+  answer("Negro", correct = TRUE),
+  answer("Blanco"),
+  answer("Magenta"),
+  answer("Cian")
+)
+```
+
+## Ejercicios de código
+
+Creá una tabla de frecuencias de las especies de pingüinos que se encontraron en la isla Biscoe y mostrá los resultados en orden decendiente de frecuencia.
+
+Your task is to add more `fail_if()` statements to the code checking chunk to check for realistic mistakes students can make and give them informative feedback that will nudge them in the right direction.
+
+```{r conteo-pinguinos, exercise = TRUE}
+pinguinos %>%
+  filter(isla __ "Biscoe") %>%
+  ___(___)
+```
+
+```{r conteo-pinguinos-hint-1}
+pinguinos %>%
+  filter(isla == "Biscoe") %>%
+  count(___, ___)
+```
+
+```{r conteo-pinguinos-hint-2}
+Agregá una pista extra...
+```
+
+```{r conteo-pinguinos-solution}
+pinguinos %>%
+  filter(isla == "Biscoe") %>%
+  count(especie, sort = TRUE)
+```
+
+```{r conteo-pinguinos-check}
+grade_result(
+  pass_if(~ identical(as.numeric(.result[1,2]), 124), "En este set de datos, la especie más común en la isla Biscoe es la Gentoo."),
+  fail_if(~ identical(as.numeric(.result[1,2]), 123), "Chequeando 123 no tiene sentido en este caso, modificá la opción para generar un chequeo más realista."),
+  # agregá una opción de fail_if() ...
+  fail_if(~ TRUE, "Casi! ___")
+)
+```
