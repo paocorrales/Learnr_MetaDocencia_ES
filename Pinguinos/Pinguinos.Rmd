@@ -69,7 +69,7 @@ Modificá la siguiente pregunta para que:
 - Permita volver a responder si la respuesta dada fue incorrecta
 - Muestre las posibles respuestas en orden aleatorio
 - Muestre un mensaje específico cuando la respuesta es correcta
-- Muestre mensajes específicos cuando la respuesta es incorrecta (intetá dar pistas o mensajes de retroalimentación para las distintas respuestas incorrectas)
+- Muestre mensajes específicos cuando la respuesta es incorrecta (intentá dar pistas o mensajes de retroalimentación para las distintas respuestas incorrectas)
 - Modifica la pregunta sobre el color de los pinguinos para que permita más de una opción correcta
 - Incluye las dos preguntas en un `quiz()`
 
@@ -98,7 +98,7 @@ question(
 
 Creá una tabla de frecuencias de las especies de pingüinos que se encontraron en la isla Biscoe y mostrá los resultados en orden decendiente de frecuencia.
 
-Your task is to add more `fail_if()` statements to the code checking chunk to check for realistic mistakes students can make and give them informative feedback that will nudge them in the right direction.
+Tu tarea consiste en añadir más sentencias `fail_if()` al chunk de comprobación de código para chequear los errores que pueden cometer tus estudiantes y darles una respuesta informativa que les empuje en la dirección correcta.
 
 ```{r conteo-pinguinos, exercise = TRUE}
 pinguinos %>%
